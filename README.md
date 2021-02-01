@@ -1,0 +1,1 @@
+# animated-pratice-react-native
