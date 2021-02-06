@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import CollapsibleElement from './src/collapsibleElement/index';
 import CustomButton from './src/customButton';
 import ExpandPage from './src/expandPage';
+import Locations from './src/locations';
 import UserLocation from './src/userLocation/index';
 
 export default function App() {
@@ -11,7 +12,8 @@ export default function App() {
       {/* <CollapsibleElement /> */}
       {/* <CustomButton /> */}
       {/* <ExpandPage /> */}
-      <UserLocation/>
+      {/* <UserLocation/> */}
+      <Locations/>
     </View>
   )
 }
