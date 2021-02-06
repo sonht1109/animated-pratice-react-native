@@ -7,27 +7,38 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import chips from './chips'
 import { Caption, Chip, Title } from 'react-native-paper'
 import Rating from './Rating';
+import gasStations from './gasStations'
+import hospitals from './hospitals'
 
 const { width } = Dimensions.get('window')
 
 const CARD_MARGIN = 10
 const CARD_WIDTH = width - 2*CARD_MARGIN
-const LATITUEDELTA = 0.02
-const LONGITUEDELTA = 0.02
+const LATITUEDELTA = 0.05
+const LONGITUEDELTA = 0.05
+
+const hanoiLocation = {
+  latitude: 21.012763,
+  longitude: 105.814160,
+  latitudeDelta: 0.1,
+  longitudeDelta: 0.1,
+}
+
+const placeObject = {
+  food: foodPlaces,
+  gas: gasStations,
+  hospital: hospitals
+}
 
 export default function Locations() {
 
-  const [region, setRegion] = useState({
-    // HANOI
-    latitude: 21.012763,
-    longitude: 105.814160,
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.1,
-  })
-  const [restaurants, setRestaurants] = useState(foodPlaces)
+  const [region, setRegion] = useState(hanoiLocation)
+
+  const [places, setPlaces] = useState([])
 
   const [keyword, setKeyword] = useState('')
   const _currentIndex = useRef(0)
+  const _placeKey = useRef('')
 
   const _map = useRef(null)
   const _scrollView = useRef(null)
@@ -37,12 +48,13 @@ export default function Locations() {
   useEffect(() => {
     animated.addListener(({value}) => {
       let index = Math.round(value/CARD_WIDTH)
+
       clearTimeout(regionTimeout)
 
       const regionTimeout = setTimeout(() => {
-        if(index !== _currentIndex.current){
+        if(index !== _currentIndex.current && places.length){
           _currentIndex.current = index
-          const  {coordinate} = restaurants[_currentIndex.current]
+          const  {coordinate} = places[_currentIndex.current]
           _map.current.animateToRegion(
             {
               ...coordinate,
@@ -53,10 +65,11 @@ export default function Locations() {
           )
         }
       }, 10)
-    })
-  }, [])
 
-  const markerInterpolations = restaurants.map((res, index) => {
+    })
+  })
+
+  const markerInterpolations = places.map((item, index) => {
     const inputRange = [(index-1)* width, index*width, (index+1)*width ]
     const scale = animated.interpolate({
       inputRange, 
@@ -66,9 +79,20 @@ export default function Locations() {
     return {scale}
   })
 
-  const onHandleChangeLocation = (index)=> {
+  const handleChangeLocation = (index)=> {
     let x = index * CARD_WIDTH + index * 2 * CARD_MARGIN
     _scrollView.current.scrollTo({x: x, y:0, animated: true})
+  }
+
+  const handleChoosePlaces = (value)=> {
+    if(_placeKey.current === value){
+      setPlaces([])
+      _placeKey.current = ''
+    }
+    else{
+      setPlaces(placeObject[value])
+      _placeKey.current = value
+    }
   }
 
   return (
@@ -82,7 +106,7 @@ export default function Locations() {
         followsUserLocation={true}
         region={region}
         >
-        {restaurants.map((marker, index) => {
+        {places.map((marker, index) => {
           const scaleStyle = markerInterpolations[index].scale
           return (
             <Marker
@@ -90,7 +114,7 @@ export default function Locations() {
               title={marker.title}
               description={marker.subtitle}
               coordinate={marker.coordinate}
-              onPress={() => {onHandleChangeLocation(index)}}
+              onPress={() => {handleChangeLocation(index)}}
             >
               <Animated.View style={[styles.markerWrapper, { transform: [{scale: scaleStyle}]}]}>
                 <Animated.Image
@@ -127,9 +151,11 @@ export default function Locations() {
           {chips.map((chip, index) => {
             return (
               <Chip
+                selected={chip.key === _placeKey.current}
                 icon={chip.icon}
                 key={'chip' + index}
                 style={{ marginHorizontal: 10 }}
+                onPress={()=>handleChoosePlaces(chip.key)}
               >
                 {chip.name}
               </Chip>
@@ -153,23 +179,23 @@ export default function Locations() {
           {useNativeDriver: true}
         )}
       >
-        {restaurants.map((res, index) => {
+        {places.map((item, index) => {
           return (
-            <View key={'restaurant' + index} style={styles.sliderItem}>
+            <View key={'place' + index} style={styles.sliderItem}>
               <Image
-                source={{ uri: res.img }}
+                source={{ uri: item.img }}
                 style={{ width: "100%", height: 120 }}
               />
               <View style={{padding: 10}}>
                 <Title>
-                  {res.title}
+                  {item.title}
                 </Title>
                 <Caption>
-                  {res.subtitle}
+                  {item.subtitle}
                 </Caption>
                 <View style={{flexDirection: "row", alignItems: "center"}}>
-                  <Rating reviews={res.reviews} rating={res.rating} />
-                  <Text> ({res.reviews})</Text>
+                  <Rating reviews={item.reviews} rating={item.rating} />
+                  <Text> ({item.reviews})</Text>
                 </View>
                 <TouchableOpacity style={styles.button} activeOpacity={0.8}>
                   <Text style={{color: "#ffdba9", fontWeight: "700"}}>Go Now</Text>
