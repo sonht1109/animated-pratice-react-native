@@ -32,7 +32,8 @@ const placeObject = {
 
 export default function Locations() {
 
-  const [region, setRegion] = useState(hanoiLocation)
+  const [theme, setTheme] = useState('dark')
+  // dark or standard
 
   const [places, setPlaces] = useState([])
 
@@ -100,11 +101,11 @@ export default function Locations() {
       <StatusBar hidden={false} />
       <MapView
         ref={_map}
-        customMapStyle={mapStyles['dark']}
+        customMapStyle={mapStyles[theme]}
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         followsUserLocation={true}
-        region={region}
+        region={hanoiLocation}
         >
         {places.map((marker, index) => {
           const scaleStyle = markerInterpolations[index].scale
