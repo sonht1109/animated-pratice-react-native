@@ -133,6 +133,10 @@ export default function Locations() {
           borderRadius: 5, paddingHorizontal: 10,
         }}>
           <TextInput
+          onFocus={() => {
+            setPlaces([])
+            _placeKey.current = ''
+          }}
             value={keyword}
             onChangeText={val => setKeyword(val)}
             placeholder="Search here"
