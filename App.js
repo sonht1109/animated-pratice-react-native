@@ -5,6 +5,7 @@ import CustomButton from './src/customButton';
 import ExpandPage from './src/expandPage';
 import Locations from './src/locations';
 import UserLocation from './src/userLocation/index';
+import CustomBottomTab from './src/customBottomTab/index';
 
 export default function App() {
   return (
@@ -13,7 +14,8 @@ export default function App() {
       {/* <CustomButton /> */}
       {/* <ExpandPage /> */}
       {/* <UserLocation/> */}
-      <Locations/>
+      {/* <Locations/> */}
+      <CustomBottomTab />
     </View>
   )
 }
