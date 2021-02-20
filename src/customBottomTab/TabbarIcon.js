@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import styled from 'styled-components/native';
-import {Transition, Transitioning} from 'react-native-reanimated'
+import { Transition, Transitioning } from 'react-native-reanimated'
 
 export const colors = {
     home: {
@@ -37,7 +37,7 @@ export default function TabbarIcon({ icon, label, size, onPress, ...props }) {
 
     const transition = (
         <Transition.Sequence>
-            <Transition.Out type="fade" durationMs={0}/>
+            <Transition.Out type="fade" durationMs={0} />
             <Transition.Change interpolation="easeInOut" durationMs={200} />
             <Transition.In type="fade" durationMs={100} />
         </Transition.Sequence>
@@ -54,18 +54,21 @@ export default function TabbarIcon({ icon, label, size, onPress, ...props }) {
             activeOpacity={1}
         >
             <InnerButton
-            // style={[styles.tabButton, { backgroundColor: bgColorStyle, flexDirection: "row" }]}
-            ref={ref}
-            transition={transition}
-            isFocused={isFocused}
-            label={label}
+                // style={[styles.tabButton, { backgroundColor: bgColorStyle, flexDirection: "row" }]}
+                ref={ref}
+                transition={transition}
+                isFocused={isFocused}
+                label={label}
             >
                 <Icon name={icon} size={size} color={colorStyle} />
-                {
-                    isFocused && <Text style={{ color: colorStyle, marginLeft: 5 }}>
-                        {label}
-                    </Text>
-                }
+                <View style={{overflow: "visible"}}>
+                    {
+                        isFocused &&
+                        <Text style={{ color: colorStyle, marginLeft: 5 }}>
+                            {label}
+                        </Text>
+                    }
+                </View>
             </InnerButton>
         </TouchableWithoutFeedback>
     )
@@ -88,5 +91,5 @@ const InnerButton = styled(Transitioning.View)`
     margin: 6px;
     border-radius: 10px;
     flex-direction: row;
-    background-color: ${(props) => (props.isFocused ? colors[props.label.toLowerCase()].bgColor : "white")}
+    background-color: ${(props) => (props.isFocused ? colors[props.label.toLowerCase()].bgColor : "white")};
 `
