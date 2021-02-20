@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import styled from 'styled-components/native';
 import {Transition, Transitioning} from 'react-native-reanimated'
 
 export const colors = {
@@ -32,31 +33,32 @@ export default function TabbarIcon({ icon, label, size, onPress, ...props }) {
 
     const isFocused = accessibilityState.selected
     const colorStyle = isFocused ? activeColor : inactiveColor
-    const bgColorStyle = isFocused ? bgColor : "transparent"
+    // const bgColorStyle = isFocused ? bgColor : "transparent"
 
     const transition = (
-        <Transition.Sequence>
+        <Transition.Together>
             <Transition.Out type="fade" durationMs={0}/>
-            <Transition.Change interpolation="easeInOut" durationMs={100}/>
-            <Transition.In type="fade" durationMs={10} />
-        </Transition.Sequence>
+            <Transition.Change interpolation="easeInOut" durationMs={200} />
+            <Transition.In type="fade" durationMs={0} />
+        </Transition.Together>
     )
 
     const ref = useRef()
 
     return (
-        <TouchableOpacity
+        <TouchableWithoutFeedback
             onPress={() => {
                 ref.current.animateNextTransition()
                 onPress()
             }}
-            style={[styles.tabButton, { backgroundColor: bgColorStyle }]}
             activeOpacity={1}
         >
-            <Transitioning.View
-            style={{ flexDirection: "row" }} 
+            <InnerButton
+            // style={[styles.tabButton, { backgroundColor: bgColorStyle, flexDirection: "row" }]}
             ref={ref}
             transition={transition}
+            isFocused={isFocused}
+            label={label}
             >
                 <Icon name={icon} size={size} color={colorStyle} />
                 {
@@ -64,17 +66,27 @@ export default function TabbarIcon({ icon, label, size, onPress, ...props }) {
                         {label}
                     </Text>
                 }
-            </Transitioning.View>
-        </TouchableOpacity>
+            </InnerButton>
+        </TouchableWithoutFeedback>
     )
 }
 
-const styles = StyleSheet.create({
-    tabButton: {
-        flexGrow: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 6,
-        borderRadius: 10,
-    },
-})
+// const styles = StyleSheet.create({
+//     tabButton: {
+//         flexGrow: 1,
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         margin: 6,
+//         borderRadius: 10,
+//     },
+// })
+
+const InnerButton = styled(Transitioning.View)`
+    flex: auto;
+    align-items: center;
+    justify-content: center;
+    margin: 6px;
+    border-radius: 10px;
+    flex-direction: row;
+    background-color: ${(props) => (props.isFocused ? colors[props.label.toLowerCase()].bgColor : "white")}
+`
