@@ -1,12 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { colors } from './TabbarIcon';
 
 export default function Alarm() {
     return (
-        <View>
-            <Text>Alarm screen</Text>
-        </View>
+        <View style={{flex: 1, backgroundColor: colors['alarm'].bgColor}} />
     )
 }
-
-const styles = StyleSheet.create({})
