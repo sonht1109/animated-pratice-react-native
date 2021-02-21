@@ -36,11 +36,11 @@ export default function TabbarIcon({ icon, label, size, onPress, ...props }) {
     const bgColorStyle = isFocused ? bgColor : "transparent"
 
     const transition = (
-        <Transition.Sequence>
+        <Transition.Together>
             <Transition.Out type="fade" durationMs={0} />
             <Transition.Change interpolation="easeInOut" durationMs={200} />
             <Transition.In type="fade" durationMs={100} />
-        </Transition.Sequence>
+        </Transition.Together>
     )
 
     const ref = useRef()
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         margin: 6,
         borderRadius: 10,
+        overflow: "hidden"
     },
 })
 

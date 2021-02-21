@@ -6,6 +6,7 @@ import ExpandPage from './src/expandPage';
 import Locations from './src/locations';
 import UserLocation from './src/userLocation/index';
 import CustomBottomTab from './src/customBottomTab/index';
+import CustomBottomTab2 from './src/customBottomTab/CustomBottomTab2';
 
 export default function App() {
   return (
@@ -15,7 +16,8 @@ export default function App() {
       {/* <ExpandPage /> */}
       {/* <UserLocation/> */}
       {/* <Locations/> */}
-      <CustomBottomTab />
+      {/* <CustomBottomTab /> */}
+      <CustomBottomTab2/>
     </View>
   )
 }
