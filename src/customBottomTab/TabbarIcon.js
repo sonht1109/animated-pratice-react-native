@@ -33,7 +33,7 @@ export default function TabbarIcon({ icon, label, size, onPress, ...props }) {
 
     const isFocused = accessibilityState.selected
     const colorStyle = isFocused ? activeColor : inactiveColor
-    // const bgColorStyle = isFocused ? bgColor : "transparent"
+    const bgColorStyle = isFocused ? bgColor : "transparent"
 
     const transition = (
         <Transition.Sequence>
@@ -51,10 +51,9 @@ export default function TabbarIcon({ icon, label, size, onPress, ...props }) {
                 ref.current.animateNextTransition()
                 onPress()
             }}
-            activeOpacity={1}
         >
-            <InnerButton
-                // style={[styles.tabButton, { backgroundColor: bgColorStyle, flexDirection: "row" }]}
+            <Transitioning.View
+                style={[styles.tabButton, { backgroundColor: bgColorStyle}]}
                 ref={ref}
                 transition={transition}
                 isFocused={isFocused}
@@ -69,27 +68,29 @@ export default function TabbarIcon({ icon, label, size, onPress, ...props }) {
                         </Text>
                     }
                 </View>
-            </InnerButton>
+            </Transitioning.View>
         </TouchableWithoutFeedback>
     )
 }
 
-// const styles = StyleSheet.create({
-//     tabButton: {
-//         flexGrow: 1,
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         margin: 6,
-//         borderRadius: 10,
-//     },
-// })
+const styles = StyleSheet.create({
+    tabButton: {
+        flexGrow: 1,
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 6,
+        borderRadius: 10,
+    },
+})
 
-const InnerButton = styled(Transitioning.View)`
-    flex: auto;
-    align-items: center;
-    justify-content: center;
-    margin: 6px;
-    border-radius: 10px;
-    flex-direction: row;
-    background-color: ${(props) => (props.isFocused ? colors[props.label.toLowerCase()].bgColor : "white")};
-`
+// const InnerButton = styled(Transitioning.View)`
+//     /* flex: auto; */
+//     flex-grow: 1;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 6px;
+//     border-radius: 10px;
+//     flex-direction: row;
+//     background-color: ${(props) => (props.isFocused ? colors[props.label.toLowerCase()].bgColor : "white")};
+// `
