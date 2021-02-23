@@ -46,9 +46,15 @@ export default function Onboarding() {
               inputRange: [(i-0.5)*width, i*width, (i+0.5)*width],
               outputRange: [0, 1, 0]
             })
+            const scaleImageStyle = scrollAnimated.interpolate({
+              inputRange: [(i-0.5)*width, i*width, (i+0.5)*width],
+              outputRange: [0.8, 1, 0.8]
+            })
             return (
               <Animated.View
-              style={[styles.imageWrapper, {opacity: opacityStyle}]}
+              style={[styles.imageWrapper, {opacity: opacityStyle, transform: [
+                {scale: scaleImageStyle}
+              ]}]}
               key={'image' + i}
               >
                 <Image source={slide.image} style={{
