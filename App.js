@@ -7,6 +7,7 @@ import Locations from './src/locations';
 import UserLocation from './src/userLocation/index';
 import CustomBottomTab from './src/customBottomTab/index';
 import CustomBottomTab2 from './src/customBottomTab/CustomBottomTab2';
+import Onboarding from './src/onboarding/index';
 
 export default function App() {
   return (
@@ -17,7 +18,8 @@ export default function App() {
       {/* <UserLocation/> */}
       {/* <Locations/> */}
       {/* <CustomBottomTab /> */}
-      <CustomBottomTab2/>
+      {/* <CustomBottomTab2/> */}
+      <Onboarding />
     </View>
   )
 }
