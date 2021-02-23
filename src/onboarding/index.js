@@ -9,6 +9,13 @@ const { width } = Dimensions.get('window')
 const activeColor = "#2cb9b0"
 const inactiveColor = "#e8e8e8"
 
+const images = {
+  slide0: require('./img-1.png'),
+  slide1: require('./img-2.png'),
+  slide2: require('./img-3.png'),
+  slide3: require('./img-4.png'),
+}
+
 export default function Onboarding() {
 
   const scrollAnimated = new Animated.Value(0)
@@ -31,6 +38,7 @@ export default function Onboarding() {
 
   return (
     <View style={styles.container}>
+      {/* slide */}
       <View style={styles.slides}>
         <Animated.ScrollView
           ref={scrollViewRef}
@@ -45,12 +53,14 @@ export default function Onboarding() {
         >
           {slides.map((slide, index) => {
             const { label } = slide
+            const image = images[`slide${index}`]
             return (
               <SlideItem
                 label={label}
                 bgColor={bgStyle}
                 key={'slide' + index}
                 isRight={index % 2}
+                image={image}
               />
             )
           })}
@@ -70,7 +80,7 @@ export default function Onboarding() {
                 })
                 const scaleStyle = scrollAnimated.interpolate({
                   inputRange,
-                  outputRange: [1, 1.2, 1],
+                  outputRange: [1, 1.1, 1],
                   extrapolate: "clamp"
                 })
                 return (

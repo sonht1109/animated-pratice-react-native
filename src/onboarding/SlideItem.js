@@ -1,11 +1,11 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View, Animated } from 'react-native'
+import { Dimensions, StyleSheet, Text, View, Animated, Image } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
 const LABEL_HEIGHT = 100
 const SLIDE_HEIGHT = height * 0.6
 
-export default function SlideItem({ label, bgColor, isRight }) {
+export default function SlideItem({ label, bgColor, isRight, image }) {
 
     const transformStyle = {
         transform: [
@@ -17,6 +17,10 @@ export default function SlideItem({ label, bgColor, isRight }) {
 
     return (
         <Animated.View style={[styles.slide, { backgroundColor: bgColor }]}>
+            <View style={styles.imageWrapper}>
+                <Image source={image} />
+            </View>
+
             <View style={[styles.labelWrapper, { ...transformStyle }]}>
                 <Text style={styles.label}>{label}</Text>
             </View>
@@ -38,5 +42,9 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 80,
         fontWeight: "bold"
+    },
+    imageWrapper: {
+        ...StyleSheet.absoluteFillObject,
+        // zIndex: 10
     }
 })
