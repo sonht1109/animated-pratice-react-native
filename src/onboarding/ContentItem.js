@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     contentWrapper: {
         width: width,
         flex: 1,
-        justifyContent: 'center',
-        padding: 20
+        padding: 20,
+        paddingTop: 0
     },
     innerContent: {
         marginBottom: 20,
