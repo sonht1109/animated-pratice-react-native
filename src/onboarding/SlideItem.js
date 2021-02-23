@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     label: {
         textAlign: 'center',
         color: "white",
-        fontSize: 80
+        fontSize: 80,
+        fontWeight: "bold"
     }
 })
