@@ -70,7 +70,7 @@ export default function Locations() {
     })
   })
 
-  const markerInterpolations = places.map((item, index) => {
+  const markerInterpolations = places.map((_, index) => {
     const inputRange = [(index-1)* width, index*width, (index+1)*width ]
     const scale = animated.interpolate({
       inputRange, 
