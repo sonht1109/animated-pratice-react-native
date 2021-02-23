@@ -60,6 +60,7 @@ export default function Onboarding() {
                 bgColor={bgStyle}
                 key={'slide' + index}
                 isRight={index % 2}
+                isReverse={!(index % 2)}
                 image={image}
               />
             )

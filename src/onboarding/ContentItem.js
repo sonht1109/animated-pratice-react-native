@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: "center",
-        fontSize: 28,
+        fontSize: 24,
         fontWeight: 'bold',
         textTransform: "capitalize"
     },

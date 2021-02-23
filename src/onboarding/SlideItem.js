@@ -5,20 +5,25 @@ const { width, height } = Dimensions.get('window')
 const LABEL_HEIGHT = 100
 const SLIDE_HEIGHT = height * 0.6
 
-export default function SlideItem({ label, bgColor, isRight, image }) {
+export default function SlideItem({ label, bgColor, isRight, image, isReverse }) {
 
     const transformStyle = {
         transform: [
             { translateY: (SLIDE_HEIGHT - LABEL_HEIGHT) / 2 },
             { translateX: isRight ? (width - LABEL_HEIGHT) / 2 : -(width - LABEL_HEIGHT) / 2 },
-            { rotate: '-90deg' },
+            { rotate: isReverse ? '90deg' : '-90deg' },
         ]
     }
 
     return (
         <Animated.View style={[styles.slide, { backgroundColor: bgColor }]}>
             <View style={styles.imageWrapper}>
-                <Image source={image} />
+                <Image source={image} style={{
+                    width: "100%",
+                    height: '100%',
+                    // ...StyleSheet.absoluteFill,
+                    resizeMode: "contain"
+                }} />
             </View>
 
             <View style={[styles.labelWrapper, { ...transformStyle }]}>
@@ -45,6 +50,8 @@ const styles = StyleSheet.create({
     },
     imageWrapper: {
         ...StyleSheet.absoluteFillObject,
+        justifyContent: "center",
+        alignItems: 'center'
         // zIndex: 10
-    }
+    },
 })
