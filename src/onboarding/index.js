@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Animated, Dimensions, StyleSheet, View } from 'react-native'
+import { Animated, Dimensions, Image, StyleSheet, View } from 'react-native'
 import slides from './slides'
 import SlideItem from './SlideItem';
 import ContentItem from './ContentItem';
@@ -38,8 +38,30 @@ export default function Onboarding() {
 
   return (
     <View style={styles.container}>
-      {/* slide */}
-      <View style={styles.slides}>
+      <Animated.View style={[styles.slides, {backgroundColor: bgStyle}]}>
+        {/* images */}
+        {
+          slides.map((slide, i) => {
+            const opacityStyle = scrollAnimated.interpolate({
+              inputRange: [(i-0.5)*width, i*width, (i+0.5)*width],
+              outputRange: [0, 1, 0]
+            })
+            return (
+              <Animated.View
+              style={[styles.imageWrapper, {opacity: opacityStyle}]}
+              key={'image' + i}
+              >
+                <Image source={slide.image} style={{
+                  width: undefined,
+                  height: undefined,
+                  ...StyleSheet.absoluteFill,
+                  resizeMode: "contain",
+                }} />
+              </Animated.View>
+            )
+          })
+        }
+        {/* slide */}
         <Animated.ScrollView
           ref={scrollViewRef}
           horizontal
@@ -66,14 +88,14 @@ export default function Onboarding() {
             )
           })}
         </Animated.ScrollView>
-      </View>
+      </Animated.View>
       <Animated.View style={{ flex: 1, backgroundColor: bgStyle }}>
         <Animated.View style={{ flex: 1, backgroundColor: "white", borderTopLeftRadius: 75, overflow: 'hidden', position: "relative" }}>
           {/* paging */}
           <View style={styles.paging}>
             {
               slides.map((_, i) => {
-                const inputRange = [(i-1)* width, i*width, (i+1)*width]
+                const inputRange = [(i - 1) * width, i * width, (i + 1) * width]
                 const dotColorStyle = scrollAnimated.interpolate({
                   inputRange,
                   outputRange: [inactiveColor, activeColor, inactiveColor],
@@ -124,7 +146,8 @@ const styles = StyleSheet.create({
   },
   slides: {
     borderBottomRightRadius: 75,
-    overflow: "hidden"
+    overflow: "hidden",
+    position: 'relative'
   },
   contents: {
     flex: 1,
@@ -142,5 +165,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     // zIndex: 10
-  }
+  },
+  imageWrapper: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: 'center',
+    backgroundColor: "transparent",
+    zIndex: 0
+  },
 })

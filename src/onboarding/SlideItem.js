@@ -16,16 +16,7 @@ export default function SlideItem({ label, bgColor, isRight, image, isReverse })
     }
 
     return (
-        <Animated.View style={[styles.slide, { backgroundColor: bgColor }]}>
-            <View style={styles.imageWrapper}>
-                <Image source={image} style={{
-                    width: "100%",
-                    height: '100%',
-                    // ...StyleSheet.absoluteFill,
-                    resizeMode: "contain"
-                }} />
-            </View>
-
+        <Animated.View style={[styles.slide, {backgroundColor: "transparent"}]}>
             <View style={[styles.labelWrapper, { ...transformStyle }]}>
                 <Text style={styles.label}>{label}</Text>
             </View>
@@ -36,7 +27,7 @@ export default function SlideItem({ label, bgColor, isRight, image, isReverse })
 const styles = StyleSheet.create({
     slide: {
         width: width, height: SLIDE_HEIGHT,
-        backgroundColor: "white"
+        backgroundColor: "white",
     },
     labelWrapper: {
         height: LABEL_HEIGHT,
