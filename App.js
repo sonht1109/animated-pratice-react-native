@@ -8,6 +8,7 @@ import UserLocation from './src/userLocation/index';
 import CustomBottomTab from './src/customBottomTab/index';
 import CustomBottomTab2 from './src/customBottomTab/CustomBottomTab2';
 import Onboarding from './src/onboarding/index';
+import SwipableCards from './src/swipableCards/index';
 
 export default function App() {
   return (
@@ -19,7 +20,8 @@ export default function App() {
       {/* <Locations/> */}
       {/* <CustomBottomTab /> */}
       {/* <CustomBottomTab2/> */}
-      <Onboarding />
+      {/* <Onboarding /> */}
+      <SwipableCards />
     </View>
   )
 }
