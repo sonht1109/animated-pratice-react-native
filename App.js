@@ -9,6 +9,7 @@ import CustomBottomTab from './src/customBottomTab/index';
 import CustomBottomTab2 from './src/customBottomTab/CustomBottomTab2';
 import Onboarding from './src/onboarding/index';
 import SwipableCards from './src/swipableCards/index';
+import FashionScrollView from './src/fashionScrollView/index';
 
 export default function App() {
   return (
@@ -21,7 +22,8 @@ export default function App() {
       {/* <CustomBottomTab /> */}
       {/* <CustomBottomTab2/> */}
       {/* <Onboarding /> */}
-      <SwipableCards />
+      {/* <SwipableCards /> */}
+      <FashionScrollView />
     </View>
   )
 }
