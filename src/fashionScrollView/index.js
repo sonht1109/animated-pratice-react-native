@@ -11,7 +11,7 @@ export default function FashionScrollView() {
     const y = new Animated.Value(0)
     return (
         <Animated.ScrollView
-        // scrollEventThrottle={16}
+        scrollEventThrottle={1}
         decelerationRate="fast"
         snapToInterval={MAX_HEIGHT}
         contentContainerStyle={{height: MAX_HEIGHT*(list.length + 1), backgroundColor: "black"}}

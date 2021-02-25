@@ -12,6 +12,10 @@ target 'animted' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+  pod 'RNSharedElement', :path => '../node_modules/react-native-shared-element'
+
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
   target 'animtedTests' do
     inherit! :complete
     # Pods for testing
