@@ -10,7 +10,7 @@ import CustomBottomTab2 from './src/customBottomTab/CustomBottomTab2';
 import Onboarding from './src/onboarding/index';
 import SwipableCards from './src/swipableCards/index';
 import FashionScrollView from './src/fashionScrollView/index';
-import Stories from './src/stories/index';
+import SwipeToDeleteList from './src/swipeToDeleteList';
 
 export default function App() {
   return (
@@ -25,7 +25,7 @@ export default function App() {
       {/* <Onboarding /> */}
       {/* <SwipableCards /> */}
       {/* <FashionScrollView /> */}
-      <Stories />
+      <SwipeToDeleteList />
     </View>
   )
 }

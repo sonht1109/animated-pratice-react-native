@@ -30,7 +30,7 @@ export default function Card({ order, onSwipe }) {
             onPanResponderMove: Animated.event(
                 [
                     null,
-                    { dx: pan.x, dy: pan.y}
+                    { dx: pan.x, dy: pan.y }
                 ],
                 // {useNativeDriver: false}
             ),
