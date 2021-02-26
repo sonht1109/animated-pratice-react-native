@@ -28,9 +28,9 @@ export default function Item({ item }) {
 
     const onRemoveAnimated = () => {
         Animated.parallel([
-            Animated.spring(pan, {
+            Animated.timing(pan, {
                 toValue: { x: -9999, y: 0 },
-                friction: 5,
+                duration: 200,
                 useNativeDriver: false
             }),
             Animated.timing(heightAnimated, {
@@ -62,7 +62,7 @@ export default function Item({ item }) {
                 ]
             ),
             onPanResponderRelease: () => {
-                if (pan.x._value < -width * 0.5) {
+                if (pan.x._value < -width * 0.6) {
                     onRemoveAnimated()
                 }
                 else if (pan.x._value < -100) {
