@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import { StyleSheet, Text, Animated, PanResponder, Dimensions, View } from 'react-native'
-import Action from './Action';
 
 const HEIGHT = 60
 const { width } = Dimensions.get('window')
@@ -9,10 +8,22 @@ export default function Item({ item }) {
 
     const pan = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current
     const heightAnimated = useRef(new Animated.Value(HEIGHT)).current
-    const borderWidthAnimated = useRef(new Animated.Value(1)).current
+    const borderWidthAnimated = useRef(new Animated.Value(0)).current
     const actionWidthAnimated = pan.x.interpolate({
         inputRange: [-width, 0],
         outputRange: [width, 0]
+    })
+    const actionHeightAnimated = pan.x.interpolate({
+        inputRange: [-9999, -width, -HEIGHT, 0],
+        outputRange: [0, HEIGHT, HEIGHT, 0]
+    })
+    const borderRadius = pan.x.interpolate({
+        inputRange: [-width, -HEIGHT-20, 0],
+        outputRange: [0, 0, HEIGHT]
+    })
+    const opacityAnimated = pan.x.interpolate({
+        inputRange: [-120, -100, 0],
+        outputRange: [0, 1, 1]
     })
 
     const onRemoveAnimated = () => {
@@ -75,16 +86,33 @@ export default function Item({ item }) {
     return (
         <Animated.View>
             <View style={styles.actions}>
-                {/* <Action pan={pan} /> */}
                 <Animated.View
                     style={{
                         width: actionWidthAnimated,
-                        backgroundColor: "yellow",
+                        height: actionHeightAnimated,
+                        borderRadius,
                         justifyContent: "center",
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        backgroundColor: "red"
                     }}
                 >
-                    <Text>123</Text>
+                    <Animated.View style={{
+                        width: 20,
+                        height: 5,
+                        backgroundColor: "white",
+                        opacity: opacityAnimated
+                    }}
+                    />
+                    <Animated.View
+                    style={{
+                        ...StyleSheet.absoluteFillObject,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        opacity: Animated.subtract(1, opacityAnimated)
+                    }}
+                    >
+                        <Text style={{color: "white"}}>Remove</Text>
+                    </Animated.View>
                 </Animated.View>
             </View>
             <Animated.View
@@ -112,7 +140,6 @@ const styles = StyleSheet.create({
     },
     actions: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: "red",
         zIndex: 0,
         flexDirection: 'row',
         justifyContent: "flex-end",
